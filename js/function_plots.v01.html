@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Plots</title>
+</head>
+<body>
+    <h1 style="font-family: sans-serif;">For Loops, Number Generation, and Function Plots</h1>
+    <p style="font-family: sans-serif;">This page demonstrates the use of for loops for number generation, and function plots graphs.</p>
+
+    <script>
+        var sales = [0, 50, 74, 31, 47, 25, 67, 78, 45, 15, 85, 43, 100];
+        document.write("<h3>Graph of Sales</h3>");
+        document.write("<canvas id=\"myCanvas1\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
+        graph(sales, "Sales", "myCanvas1");
+        
+        const PI = Math.PI;
+
+        var myArray = [];
+        for (let i = 0; i < 100; i++) {
+            myArray.push((1.33 * i) + 0);
+        }
+        document.write("<h3>Graph of My Array</h3>");
+        document.write("<canvas id=\"myCanvas2\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
+        graph(myArray, "My Array", "myCanvas2");
+
+        var randInteger = (min, max) => {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+        console.log("Random number: " + randInteger(0, 100));
+
+        var randomNum = [];
+        addRandomInteger(randomNum, 0, 100, 25);
+        document.write("<h3>Graph of Random Numbers</h3>");
+        document.write("<canvas id=\"myCanvas3\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
+        graph(randomNum, "Random Numbers", "myCanvas3");      
+
+        function graph(list, listName, canvasId) {
+            // SETUP
+            var canvas = document.getElementById(canvasId);
+            var theContext = canvas.getContext("2d");
+            var width = canvas.width;
+            var height = canvas.height;
+            var inputMin = Math.min(...list);
+            var inputMax = Math.max(...list);
+
+            // SCALE
+            var scale = (num, in_min, in_max, out_min, out_max) => {
+                return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+            }
+            var myList = list.map(n => scale(n, inputMin, inputMax, 0, height));
+            const myListLength = myList.length;
+            var offset = (1 / (myListLength - 1)) * width;
+
+            // GRAPH
+            theContext.fillStyle = "#AAF5C6";
+            theContext.fillRect(0, 0, width, height);
+            theContext.strokeRect(0, 0, width, height);
+            theContext.moveTo(0, myList[0]);
+            theContext.beginPath();
+            for (let i = 0; i < myListLength; i++) {
+                theContext.lineTo(i * offset, height - myList[i]);
+            }
+            theContext.stroke();
+
+            // PRINT
+            console.log(listName + ": " + list);
+            console.log("My List: " + myList);
+        }
+
+        function addRandomInteger(list, min, max, num) {
+            for (let i = 0; i < num; i++) {
+                list.push(randInteger(min, max));
+            }
+        }
+    </script>
+</body>
+</html>
