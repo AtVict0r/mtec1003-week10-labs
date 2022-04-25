@@ -46,7 +46,7 @@
         
         var graphArt = [];
         for (let i = 0; i < 1000; i++) {
-            graphArt.push((i * PI) % Mat.sin(randInteger(i * PI, i**2)));
+            graphArt.push((i * PI) % Math.sin(randInteger(i * PI, i**2)));
         }
         document.write("<h3>Make Art With Graph</h3>");
         document.write("<canvas id=\"myCanvas4\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
