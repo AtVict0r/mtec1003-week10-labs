@@ -42,7 +42,15 @@
         addRandomInteger(randomNum, 0, 100, 25);
         document.write("<h3>Graph of Random Numbers</h3>");
         document.write("<canvas id=\"myCanvas3\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
-        graph(randomNum, "Random Numbers", "myCanvas3");      
+        graph(randomNum, "Random Numbers", "myCanvas3");
+        
+        var graphArt = [];
+        for (let i = 0; i < 1000; i++) {
+            graphArt.push((i * PI) % Math.sin(randInteger(i * PI, i**2)))
+        }
+        document.write("<h3>Make Art With Graph</h3>");
+        document.write("<canvas id=\"myCanvas4\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
+        graph(graphArt, "Graph Art", "myCanvas4");
 
         function graph(list, listName, canvasId) {
             /**
@@ -92,15 +100,7 @@
             for (let i = 0; i < num; i++) {
                 list.push(randInteger(min, max));
             }
-        }
-
-        var graphArt = [];
-        for (let i = 0; i < 1000; i++) {
-            graphArt.push((i * PI) % Math.sin(randInteger(i * PI, i**2)))
-        }
-        document.write("<h3>Make Art With Graph</h3>");
-        document.write("<canvas id=\"myCanvas4\" width=\"750px\" height=\"200px\" style=\"border: 1px solid gray;\"></canvas>");        
-        graph(graphArt, "Graph Art", "myCanvas4"); 
+        } 
     </script>
 </body>
 </html>
